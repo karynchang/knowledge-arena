@@ -141,7 +141,7 @@ header #hostSettings input{width:17px;height:17px}
 @media(max-width:750px){.rank-panel .rank-v6{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:'identity identity identity' 'score gain move';row-gap:8px;column-gap:6px}.rank-panel .rank-identity{grid-area:identity;display:flex;align-items:flex-start;gap:10px;width:100%;min-width:0}.rank-panel .rank-no{flex:0 0 1.6em;min-width:1.6em;font-size:18px;line-height:1.25}.rank-panel .rank-name{flex:1;min-width:0;width:auto;text-align:left;margin:0;padding:0;line-height:1.35}.rank-panel .rank-score,.rank-panel .rank-gain,.rank-panel .rank-move{text-align:center}.rank-panel .rank-v6{padding:12px 10px}.rank-panel{padding:10px}}
 
 /* V8: static QR display, no enlargement interaction */
-.join-mini .qr-display{cursor:default;box-sizing:border-box;text-align:center}.join-mini.join-inline.lobby-qr .qr-display{width:100%;padding:8px;background:white;border-radius:12px}.join-mini.join-inline:not(.lobby-qr) .qr-display{width:100%;padding:12px 10px 10px;border-radius:18px;border:1px solid #ded9e9;box-shadow:0 3px 0 #6554c7,0 10px 30px #14132a18;background:white;display:flex;flex-direction:column;align-items:center;gap:6px}
+.join-mini .qr-display{cursor:default;box-sizing:border-box;text-align:center}.join-mini.join-inline.lobby-qr .qr-display{width:100%;padding:8px;background:white;border-radius:12px}.join-mini.join-inline:not(.lobby-qr) .qr-display{width:100%;padding:12px 10px 10px;border-radius:18px;border:1px solid #ded9e9;box-shadow:0 10px 30px #14132a18;background:white;display:flex;flex-direction:column;align-items:center;gap:6px}
 
 /* V9: compact lobby list, enlarged scan card, shared desktop rank tracks */
 header b{font-size:clamp(19px,2vw,26px);font-weight:750}
@@ -162,3 +162,34 @@ body[data-mode="host"][data-stage="lobby"] .lobby-names{flex:0 1 auto;min-height
 /* V9 final: approved 85% dock scale; lobby QR unchanged. */
 .join-mini.join-inline:not(.lobby-qr) .qr-display{padding:10px 9px 9px;gap:5px}
 .join-mini-text{font-size:14px}.join-mini-meta{font-size:11px}
+
+/* V9.1: larger dock, consistent left-aligned desktop columns, visible movement and tied awards. */
+@media(min-width:1100px){
+ .join-mini.join-inline:not(.lobby-qr){width:clamp(280px,25vw,440px);right:12px;bottom:12px;position:fixed}
+ .join-mini.join-inline:not(.lobby-qr) .qr-display{padding:14px 14px 12px;gap:6px;min-height:0}
+ .join-mini.join-inline:not(.lobby-qr) #qrMini{width:min(100%,calc(42dvh - 80px));max-width:100%;height:auto;padding:12px;aspect-ratio:1}
+ #app.with-join-qr{--dock-space:calc(clamp(280px,25vw,440px) + 42px);width:calc(100% - var(--dock-space));max-width:1050px;margin-left:max(12px,calc((100% - var(--dock-space) - 1050px)/2));margin-right:auto}
+}
+@media(min-width:751px){
+ .rank-panel .rank-head,.rank-panel .rank-v6{grid-template-columns:44px minmax(0,1fr) minmax(94px,auto) minmax(94px,auto) minmax(110px,auto);gap:10px}
+ .rank-panel .rank-head span,.rank-panel .rank-head span:nth-child(n+3),.rank-panel .rank-score,.rank-panel .rank-gain,.rank-panel .rank-move{text-align:left;justify-self:stretch}
+ .rank-panel .rank-head,.rank-panel .rank-v6{grid-template-columns:44px minmax(0,1fr) 100px 100px 112px}
+ .rank-panel .rank-head span{font-weight:700}
+ .rank-panel .rank-no,.rank-panel .rank-name{text-align:left}
+}
+.rank-move .move-mark{display:inline-block;border-radius:8px;padding:4px 8px;white-space:nowrap;font-weight:700;line-height:1.3}
+.rank-move.up .move-mark{color:#12603c;background:#d9f4e4;border:1px solid #80c8a0}
+.rank-move.down .move-mark{color:#9b263d;background:#fce0e5;border:1px solid #e9a1b0}
+.rank-move:not(.up):not(.down) .move-mark{color:#59677b;background:#f0f1f5;border:1px solid #e1e4ec}
+.podium-person .tie-label{font-weight:700;color:#725514;font-size:clamp(12px,1.8vw,18px)}
+.podium-place.tied .podium-person strong+strong{border-top:1px solid #d9c58a;padding-top:8px;width:100%}
+
+/* V9.1: gemstone-blue winner name capsules */
+.podium-names{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;width:100%;min-width:0}.podium-person .podium-name-chip{display:block;max-width:100%;min-width:0;background:#2455a6;color:#fff;border:1px solid #1a438a;border-radius:24px;padding:9px 15px;font-size:clamp(16px,2vw,24px);font-weight:750;line-height:1.4;white-space:normal;overflow-wrap:anywhere;word-break:break-word}.podium-place.tied .podium-person .podium-name-chip+.podium-name-chip{border:1px solid #1a438a;padding:9px 15px;width:auto}.podium-v6 .podium-place:only-of-type{width:100%}@media(max-width:600px){.podium-names{gap:6px}.podium-person .podium-name-chip,.podium-place.tied .podium-person .podium-name-chip+.podium-name-chip{padding:6px 9px;font-size:14px}}
+
+/* V9.2: initial ranking and player identity */
+.rank-move.first .move-mark{color:#2455a6;background:#e3edff;border:1px solid #a3bce7}
+header #playerName[hidden]{display:none!important}
+header #playerName{grid-area:audio;justify-self:end;min-width:0;max-width:min(30vw,360px);padding:6px 12px;border-radius:20px;background:#2455a6;border:1px solid #1a438a;color:#fff;font-size:13px;font-weight:700;line-height:1.4;text-align:center;overflow-wrap:anywhere;white-space:normal}
+body[data-mode="player"] header:has(#playerName:not([hidden])){grid-template-columns:minmax(0,1fr) auto minmax(0,auto)}
+@media(max-width:750px){header #playerName{max-width:38vw;padding:5px 9px;font-size:12px}body[data-mode="player"] header:has(#playerName:not([hidden])) b{font-size:clamp(14px,4vw,19px);overflow-wrap:anywhere}}
