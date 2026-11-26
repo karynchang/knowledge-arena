@@ -142,3 +142,23 @@ header #hostSettings input{width:17px;height:17px}
 
 /* V8: static QR display, no enlargement interaction */
 .join-mini .qr-display{cursor:default;box-sizing:border-box;text-align:center}.join-mini.join-inline.lobby-qr .qr-display{width:100%;padding:8px;background:white;border-radius:12px}.join-mini.join-inline:not(.lobby-qr) .qr-display{width:100%;padding:12px 10px 10px;border-radius:18px;border:1px solid #ded9e9;box-shadow:0 3px 0 #6554c7,0 10px 30px #14132a18;background:white;display:flex;flex-direction:column;align-items:center;gap:6px}
+
+/* V9: compact lobby list, enlarged scan card, shared desktop rank tracks */
+header b{font-size:clamp(19px,2vw,26px);font-weight:750}
+header #status,header #audio{font-size:12px;line-height:1.4}
+header #audio{padding:7px 12px}
+.lobby-names{justify-content:flex-start;align-content:flex-start}
+body[data-mode="host"][data-stage="lobby"] .lobby-names{flex:0 1 auto;min-height:0;overflow:auto;justify-content:flex-start}
+.join-mini.join-inline:not(.lobby-qr){width:clamp(213px,16.15vw,272px);max-width:calc(100vw - 24px)}
+.join-mini.join-inline:not(.lobby-qr) #qrMini{width:100%;max-width:245px;padding:7px;aspect-ratio:1}
+.join-mini.join-inline:not(.lobby-qr) #qrMini canvas,.join-mini.join-inline:not(.lobby-qr) #qrMini img{width:100%!important;height:auto!important;max-width:100%;aspect-ratio:1}
+.join-mini-text{font-size:16px}
+@media(min-width:900px){#app.with-join-qr{--dock-space:calc(clamp(213px,16.15vw,272px) + 42px);width:calc(100% - var(--dock-space));max-width:1050px;margin-left:max(12px,calc((100% - var(--dock-space) - 1050px)/2));margin-right:auto}}
+@media(min-width:751px){.rank-panel .rank-head,.rank-panel .rank-v6{grid-template-columns:48px minmax(0,1fr) 100px 100px 104px;gap:12px;padding:12px 8px;align-items:center}.rank-panel .rank-identity{display:contents}.rank-panel .rank-no,.rank-panel .rank-name{min-width:0;width:auto;display:block;line-height:1.4}.rank-panel .rank-name{overflow-wrap:anywhere;word-break:normal;white-space:normal}.rank-panel .rank-score,.rank-panel .rank-gain,.rank-panel .rank-move{min-width:0;text-align:right;justify-self:stretch;white-space:nowrap}}
+@media(max-width:750px){header b{font-size:19px}header #status,header #audio{font-size:11px}header #audio{padding:7px 9px}}
+/* Keep desktop ranking readable at intermediate viewport widths. */
+@media(min-width:751px) and (max-width:1099px){#app.with-join-qr{width:100%;max-width:1050px;margin:0 auto;padding:16px 12px 24px}.join-mini.join-inline:not(.lobby-qr){position:static;margin:20px 0 0 auto}.rank-panel .rank-head,.rank-panel .rank-v6{grid-template-columns:42px minmax(0,1fr) 86px 86px 92px;gap:8px}}
+
+/* V9 final: approved 85% dock scale; lobby QR unchanged. */
+.join-mini.join-inline:not(.lobby-qr) .qr-display{padding:10px 9px 9px;gap:5px}
+.join-mini-text{font-size:14px}.join-mini-meta{font-size:11px}
