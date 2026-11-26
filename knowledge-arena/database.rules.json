@@ -23,7 +23,7 @@
             ".write": "auth != null && auth.uid === $uid && !data.exists() && (root.child('rooms').child($room).child('state').child('stage').val() === 'lobby' || (root.child('rooms').child($room).child('state').child('allowLateJoin').val() === true && (root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank')))",
             ".validate": "newData.hasChildren(['name','score','streak','correct'])",
             "name": {
-              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20"
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
             },
             "score": {
               ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)"

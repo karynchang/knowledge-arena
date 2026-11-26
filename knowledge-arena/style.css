@@ -58,3 +58,36 @@
 /* V6 inline choices: soft answer colors and live names inside each card. */
 .answer.c0,.inline-option.c0{background:#f9dfe4;color:#713447;border-color:#ebbac5}.answer.c1,.inline-option.c1{background:#e0eafb;color:#344d83;border-color:#bdcfee}.answer.c2,.inline-option.c2{background:#fff0c6;color:#79561b;border-color:#e9d394}.answer.c3,.inline-option.c3{background:#dcf3e6;color:#24654e;border-color:#b7dfca}
 .inline-answer-grid{align-items:stretch;gap:12px}.inline-option{min-width:0;border:1px solid;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}.inline-option .answer{width:100%;margin:0;border:0;border-radius:0;box-shadow:none;min-height:85px;flex:0 0 auto;color:inherit;background:transparent;white-space:normal}.inline-option .answer:active:not(:disabled),.inline-option .answer:hover:not(:disabled){transform:none;background:#ffffff45}.inline-option.is-selected{outline:3px solid #6554c7;outline-offset:-3px}.option-number{font-weight:700}.inline-names{padding:8px 12px 12px;border-top:1px solid #ffffffa8;text-align:left;flex:1;min-width:0}.inline-count{display:block;font-size:13px;font-weight:600;text-align:right}.inline-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.inline-chips .name-chip{background:#fff;color:inherit;margin:0;max-width:100%;overflow-wrap:anywhere;font-size:13px}.submitted-note{color:#19744e;font-weight:700}.phonepreview .answer{color:inherit}.phonepreview .answer.c0{color:#713447}.phonepreview .answer.c1{color:#344d83}.phonepreview .answer.c2{color:#79561b}.phonepreview .answer.c3{color:#24654e}@media(max-width:600px){.inline-answer-grid{gap:8px}.inline-option .answer{min-height:68px;padding:10px 6px;font-size:18px}.inline-names{padding:6px 7px 9px}.inline-chips .name-chip{font-size:12px;padding:3px 6px}.inline-count{font-size:12px}}
+
+/* V7: neutral choices, inline join QR, stable ranking columns, touch-friendly controls */
+.join-mini.join-inline{position:static;inset:auto;float:none;width:268px;max-width:100%;margin:12px auto 18px;display:block;z-index:auto}
+.join-inline button{max-width:100%;margin:0 auto;min-height:0;box-shadow:0 3px 0 #413499;display:flex;align-items:center;justify-content:center}
+.join-inline #qrMini{max-width:100%;height:auto;aspect-ratio:1;display:grid;place-items:center}.join-inline #qrMini img,.join-inline #qrMini canvas{max-width:100%;height:auto!important;aspect-ratio:1;object-fit:contain}
+.answer.c0,.inline-option.c0,.phonepreview .answer.c0{background:#e9e2fa;color:#514276;border-color:#cfc0ec}
+.answer.c1,.inline-option.c1,.phonepreview .answer.c1{background:#dfeafb;color:#344d83;border-color:#bdcfee}
+.answer.c2,.inline-option.c2,.phonepreview .answer.c2{background:#fff0c6;color:#79561b;border-color:#e9d394}
+.answer.c3,.inline-option.c3,.phonepreview .answer.c3{background:#e8e9ed;color:#485268;border-color:#cdd2dc}
+.inline-option .answer,.phonepreview .answer{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.4;padding:14px 10px;min-width:0;overflow-wrap:anywhere}
+.inline-option .answer{background:transparent;color:inherit;min-height:85px}.option-text{display:block;max-width:100%;text-align:center;overflow-wrap:anywhere}.option-number{display:inline;font-weight:700}
+.order-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin:14px auto 20px}.order-actions button{min-width:100px;min-height:48px;margin:0;white-space:nowrap}#resetOrder{background:#fff;color:#6554c7;border:1px solid #cfc5ed;box-shadow:0 3px 0 #d8d1e9}
+.rank-panel .rank-head,.rank-panel .rank-v6{grid-template-columns: minmax(42px,0.5fr) minmax(0,2.5fr) minmax(100px,1fr) minmax(96px,1fr) minmax(96px,1fr);gap:12px;padding:12px 8px;justify-content:initial}.rank-panel .rank-head span:nth-child(n+3),.rank-panel .rank-score,.rank-panel .rank-gain,.rank-panel .rank-move{text-align:right;justify-self:stretch;white-space:nowrap}.rank-panel .rank-head{font-size:14px}.rank-panel .rank-name{min-width:0;overflow-wrap:anywhere}
+@media(max-width:750px){.inline-option .answer{min-height:74px;padding:10px 7px;font-size:18px}.rank-panel .rank-head{display:none}.rank-panel .rank-v6{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);grid-template-areas:'no name name' 'score gain move';gap:8px 4px;padding:12px 8px;margin:0;align-items:start;font-size:14px;justify-items:center}.rank-panel .rank-no{grid-area:no;justify-self:start;font-size:18px}.rank-panel .rank-name{grid-area:name;justify-self:start;font-size:16px;font-weight:650;width:100%}.rank-panel .rank-score{grid-area:score}.rank-panel .rank-gain{grid-area:gain}.rank-panel .rank-move{grid-area:move;font-size:13px}.rank-panel .rank-score,.rank-panel .rank-gain,.rank-panel .rank-move{text-align:center;white-space:normal;overflow-wrap:anywhere;line-height:1.4}.rank-panel [data-label]::before{content:attr(data-label);display:block;font-size:11px;font-weight:400;color:#59677b;margin-bottom:3px}.rank-panel{padding:10px}.order-actions{gap:16px}.join-mini.join-inline{margin:10px auto 14px}}
+
+/* V7 revision: large QR and wrapping participant names */
+.answer.c3,.inline-option.c3,.phonepreview .answer.c3{background:#fce5cb;color:#75491f;border-color:#e8bd91}
+.inline-option .answer{background:transparent;color:inherit}
+.join-mini.join-inline.lobby-qr{width:376px;max-width:100%;margin:12px auto 18px}
+.join-mini.join-inline button{width:100%;min-height:0;padding:8px;box-shadow:none;border:0;background:#fff;display:block}
+.join-mini.join-inline #qrMini{display:block;width:240px;height:auto;padding:8px;max-width:100%;margin:auto;aspect-ratio:1}
+.join-mini.join-inline.lobby-qr #qrMini{width:100%;max-width:368px}
+.join-mini.join-inline #qrMini canvas,.join-mini.join-inline #qrMini img{width:100%!important;height:auto!important;max-width:100%;aspect-ratio:1;object-fit:contain}
+.lobby-names,.inline-chips{display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:flex-start;gap:7px;min-width:0;max-width:100%}
+.lobby-names{justify-content:center}
+.lobby-names .name-chip,.inline-chips .name-chip{display:block;flex:0 1 auto;min-width:0;max-width:100%;margin:0;white-space:normal;overflow-wrap:anywhere;word-break:break-word;line-height:1.45;text-align:start}
+.inline-answer-grid,.inline-option,.inline-names{min-width:0;max-width:100%}
+
+/* V7 lobby restoration */
+.lobby-room .room-code-label{display:block;margin:0 0 6px;color:var(--muted,#59677b);font-size:16px;text-align:center}.lobby-room .big{line-height:1.15}.join-settings{flex-wrap:wrap}.lobby-room .lobby-qr{margin-top:14px}
+
+/* V7 nickname limit */
+.nick-limit{font-size:13px;color:var(--muted,#59677b);text-align:right;margin:0 0 12px;line-height:1.4}.podium-person strong,.rank-name,.name-chip{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:break-word;white-space:normal}
