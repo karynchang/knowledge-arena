@@ -36,6 +36,12 @@
             },
             "$other": {
               ".validate": false
+            },
+            "maxStreak": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100 && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)"
+            },
+            "rank": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && root.child('rooms').child($room).child('owner').val() === auth.uid"
             }
           }
         },
@@ -58,7 +64,8 @@
               "$other": {
                 ".validate": false
               }
-            }
+            },
+            ".read": "auth != null && $index === (root.child('rooms').child($room).child('state/index').val() + '') && (root.child('rooms').child($room).child('state/stage').val() === 'question' || root.child('rooms').child($room).child('state/stage').val() === 'closing' || root.child('rooms').child($room).child('state/stage').val() === 'reveal' || root.child('rooms').child($room).child('state/stage').val() === 'rank')"
           }
         }
       }
