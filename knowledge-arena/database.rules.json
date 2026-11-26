@@ -1,23 +1,42 @@
 {
   "rules": {
-    ".read": false, ".write": false,
+    ".read": false,
+    ".write": false,
     "rooms": {
       "$room": {
         ".write": "auth != null && ((!data.exists() && newData.child('owner').val() === auth.uid && $room.matches(/^[0-9]{6}$/)) || (data.child('owner').val() === auth.uid && newData.child('owner').val() === auth.uid))",
-        "owner": { ".read": "auth != null && data.val() === auth.uid" },
-        "privateBank": { ".read": "auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid" },
-        "state": { ".read": "auth != null" },
-        "publicCount": { ".read": "auth != null" },
+        "owner": {
+          ".read": "auth != null && data.val() === auth.uid"
+        },
+        "privateBank": {
+          ".read": "auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid"
+        },
+        "state": {
+          ".read": "auth != null"
+        },
+        "publicCount": {
+          ".read": "auth != null"
+        },
         "players": {
           ".read": "auth != null",
           "$uid": {
-            ".write": "auth != null && auth.uid === $uid && !data.exists() && root.child('rooms').child($room).child('state/stage').val() === 'lobby'",
+            ".write": "auth != null && auth.uid === $uid && !data.exists() && (root.child('rooms').child($room).child('state').child('stage').val() === 'lobby' || (root.child('rooms').child($room).child('state').child('allowLateJoin').val() === true && (root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank')))",
             ".validate": "newData.hasChildren(['name','score','streak','correct'])",
-            "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20" },
-            "score": { ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)" },
-            "streak": { ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)" },
-            "correct": { ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)" },
-            "$other": { ".validate": false }
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 20"
+            },
+            "score": {
+              ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)"
+            },
+            "streak": {
+              ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)"
+            },
+            "correct": {
+              ".validate": "newData.isNumber() && (root.child('rooms').child($room).child('owner').val() === auth.uid || newData.val() === 0)"
+            },
+            "$other": {
+              ".validate": false
+            }
           }
         },
         "answers": {
@@ -27,9 +46,18 @@
               ".read": "auth != null && auth.uid === $uid",
               ".write": "auth != null && auth.uid === $uid && !data.exists() && root.child('rooms').child($room).child('players').child($uid).exists() && root.child('rooms').child($room).child('state/stage').val() === 'question' && $index === (root.child('rooms').child($room).child('state/index').val() + '') && now < root.child('rooms').child($room).child('state/startedAt').val() + root.child('rooms').child($room).child('state/question/seconds').val() * 1000",
               ".validate": "newData.hasChildren(['choice','at'])",
-              "at": { ".validate": "newData.isNumber() && newData.val() === now" },
-              "choice": { ".validate": "newData.hasChild('0')", "$i": { ".validate": "$i.matches(/^[0-3]$/) && newData.isNumber() && newData.val() >= 0 && newData.val() <= 3" } },
-              "$other": { ".validate": false }
+              "at": {
+                ".validate": "newData.isNumber() && newData.val() === now"
+              },
+              "choice": {
+                ".validate": "newData.hasChild('0')",
+                "$i": {
+                  ".validate": "$i.matches(/^[0-3]$/) && newData.isNumber() && newData.val() >= 0 && newData.val() <= 3"
+                }
+              },
+              "$other": {
+                ".validate": false
+              }
             }
           }
         }
