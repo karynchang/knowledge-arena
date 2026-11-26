@@ -180,7 +180,7 @@ body[data-mode="host"][data-stage="lobby"] .lobby-names{flex:0 1 auto;min-height
 .rank-move .move-mark{display:inline-block;border-radius:8px;padding:4px 8px;white-space:nowrap;font-weight:700;line-height:1.3}
 .rank-move.up .move-mark{color:#12603c;background:#d9f4e4;border:1px solid #80c8a0}
 .rank-move.down .move-mark{color:#9b263d;background:#fce0e5;border:1px solid #e9a1b0}
-.rank-move:not(.up):not(.down) .move-mark{color:#59677b;background:#f0f1f5;border:1px solid #e1e4ec}
+.rank-move:not(.up):not(.down):not(.first) .move-mark{color:#59677b;background:#f0f1f5;border:1px solid #e1e4ec}
 .podium-person .tie-label{font-weight:700;color:#725514;font-size:clamp(12px,1.8vw,18px)}
 .podium-place.tied .podium-person strong+strong{border-top:1px solid #d9c58a;padding-top:8px;width:100%}
 
