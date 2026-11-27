@@ -257,7 +257,7 @@ main .tools>button,main .tools>a,main .competition-actions>button,main .order-ac
 #arenaConfirmYes.ordinary-confirm{background:#6554B8;color:#fff;border-radius:10px;box-shadow:0 3px 0 #4c3e91}
 button.secondary-action{background:#E5E7EB;color:#4B5563;border:1px solid #E5E7EB;box-shadow:none}
 
-/* V13.2 — shared question statistics card, desktop and mobile */
+/* V14.0 — shared question statistics card, desktop and mobile */
 .panel.question-stats{display:grid;gap:18px;min-width:0; padding:24px;}
 .question-stats-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;flex-wrap:wrap;}
 .question-stats-heading h3{margin:0;font-size:clamp(16px,2.5vw,20px);line-height:1.35;word-break:keep-all;}
@@ -273,3 +273,10 @@ button.secondary-action{background:#E5E7EB;color:#4B5563;border:1px solid #E5E7E
 .question-stats-cell.missed .question-stats-value{color:#59677B;}
 .question-stats .stats-bar{height:10px;margin:0;}
 @media(max-width:500px){.panel.question-stats{padding:16px;gap:14px;}.question-stats-heading>span{font-size:12px;}.question-stats-cell>span{font-size:13px;}.question-stats-value small{font-size:12px;}}
+
+.award-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;margin:24px 0}.award-card{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}.award-card .award-icon{font-size:2.5rem}.award-card label{width:100%;max-width:280px}.award-card .podium-name-chip{max-width:100%;overflow-wrap:anywhere}.award-card button{margin:8px 0}.award-card p,.award-card h2{margin:0}.final-tabs{overflow-x:auto;flex-wrap:nowrap}.final-tabs button{white-space:nowrap;flex-shrink:0}
+
+/* V14.0 revised award layout: comeback first, two mystery cards below. */
+.award-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.award-comeback{grid-column:1/-1}.award-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;max-width:620px;gap:8px}.award-metric,.award-half{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}.award-metric span,.award-half span,.award-rank-note{font-size:.85rem}.award-metric strong{font-size:clamp(1.15rem,4vw,1.65rem);white-space:nowrap}.award-metric:last-child strong,.award-congrats{color:#307451}.award-halves{width:100%;max-width:620px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.award-half{padding:14px 8px;background:#f4f5f8;border-radius:12px;color:#293344}.award-half:last-child{background:#edf3fb;color:#2455a6}.award-half h3{font-size:1rem;margin:0}.award-half strong{font-size:clamp(1.2rem,4vw,1.65rem)}.award-half b{font-size:1rem;overflow-wrap:anywhere}.award-total strong{margin-left:8px}.award-card select{max-width:100%}.award-card .muted{overflow-wrap:anywhere}@media(max-width:520px){.award-grid{gap:12px;grid-template-columns:1fr}.award-comeback{grid-column:auto}.award-card{padding:14px}.award-metrics{gap:4px}.award-metric span{font-size:.78rem}}
+
+.award-grid>.award-card{margin:0;width:100%}.award-card .podium-name-chip{display:block;max-width:100%;min-width:0;background:#2455a6;color:#fff;border:1px solid #1a438a;border-radius:24px;padding:9px 20px;font-size:clamp(16px,2vw,24px);font-weight:750;line-height:1.4;white-space:normal;overflow-wrap:anywhere;word-break:break-word}
