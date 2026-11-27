@@ -244,3 +244,15 @@ main .tools>button,main .tools>a,main .competition-actions>button,main .order-ac
 #adminNav>button,#adminNav>a,#adminGate .tools>button,#historyPanel .tools>button,#historyPanel .tools>a{margin:0!important}
 .personal-page .review-tabs{justify-content:safe center}.personal-page .review-tabs>button{flex:0 0 auto;border-radius:999px;margin:0!important;white-space:nowrap}
 @media(max-width:750px){.personal-page .review-tabs{justify-content:safe space-evenly}}
+
+/* V13: confirmation actions, home slogan and separate early-final control. */
+.shared-dialog button.secondary-action,#arenaConfirm .confirm-cancel{background:#E5E7EB;color:#4B5563;border:1px solid #E5E7EB;box-shadow:none;border-radius:10px}
+.shared-dialog button.secondary-action:hover,#arenaConfirm .confirm-cancel:hover{background:#d9dde3}
+.shared-dialog .dialog-actions>button,#arenaConfirm .competition-actions>button{min-height:44px}
+.home-slogan{display:flex;flex-direction:column;gap:6px;text-align:center;line-height:1.5}
+.early-finish-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px;padding-top:16px;border-top:1px solid #d7dce8}
+#earlyFinish{background:#25272D;color:#fff;border:0;border-radius:999px;box-shadow:none;padding:10px 18px;min-height:44px}
+.early-finish-note{margin:12px 0 16px;text-align:center;color:#59677b}
+
+#arenaConfirmYes.ordinary-confirm{background:#6554B8;color:#fff;border-radius:10px;box-shadow:0 3px 0 #4c3e91}
+button.secondary-action{background:#E5E7EB;color:#4B5563;border:1px solid #E5E7EB;box-shadow:none}
