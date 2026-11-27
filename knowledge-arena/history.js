@@ -1,4 +1,4 @@
-import {finalView,fullHistory,historySummary,analysisRows,personalRows} from './result-view.js?v=13.1';
+import {finalView,fullHistory,historySummary,analysisRows,personalRows} from './result-view.js?v=13.2';
 import {firebaseConfig} from './config.js';
 import {initializeApp,getApps,getApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {getAuth,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
