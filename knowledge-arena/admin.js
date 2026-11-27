@@ -1,4 +1,4 @@
-import {mountEditor,validate} from './editor.js?v=14.0-r3';
+import {mountEditor,validate} from './editor.js?v=15.0';
 import {firebaseConfig} from './config.js';
 import {initializeApp,getApps,getApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider,signOut} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';

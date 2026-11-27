@@ -4,7 +4,7 @@
     ".write": false,
     "rooms": {
       "$room": {
-        ".write": "auth != null && auth.token.firebase.sign_in_provider === 'google.com' && ((!data.exists() && newData.child('owner').val() === auth.uid && newData.child('state/version').val() === 10 && $room.matches(/^[0-9]{6}$/)) || (data.child('owner').val() === auth.uid && (!newData.exists() || (newData.child('owner').val() === auth.uid && data.child('state/version').val() === 10 && newData.child('state/version').val() === 10 && newData.child('state/createdAt').val() === data.child('state/createdAt').val()))))",
+        ".write": "auth != null && auth.token.firebase.sign_in_provider === 'google.com' && ((!data.exists() && newData.child('owner').val() === auth.uid && newData.child('state/version').val() === 10 && $room.matches(/^[0-9]{6}$/)) || (data.child('owner').val() === auth.uid && (!newData.exists() || (newData.child('owner').val() === auth.uid && data.child('state/version').val() === 10 && newData.child('state/version').val() === 10 && newData.child('state/createdAt').val() === data.child('state/createdAt').val() && newData.child('state/privacyV15').val() === data.child('state/privacyV15').val() && newData.child('state/grouped').val() === data.child('state/grouped').val()))))",
         "owner": {
           ".read": "auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid && auth.token.firebase.sign_in_provider === 'google.com'"
         },
@@ -13,16 +13,16 @@
         },
         "state": {
           ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && ((root.child('rooms').child($room).child('state').child('stage').val() !== 'final' && root.child('rooms').child($room).child('state').child('stage').val() !== 'review') || root.child('rooms').child($room).child('players').child(auth.uid).exists())",
-          ".validate": "newData.hasChildren(['version','title','stage','index','total','timeout','expiresAt','createdAt']) && newData.child('version').val() === 10 && newData.child('expiresAt').isNumber() && newData.child('expiresAt').val() <= now + 605000000"
+          ".validate": "newData.hasChildren(['version','title','stage','index','total','timeout','expiresAt','createdAt']) && newData.child('version').val() === 10 && newData.child('expiresAt').isNumber() && newData.child('expiresAt').val() <= now + 605000000 && ((!newData.hasChild('privacyV15') && !newData.hasChild('grouped')) || (newData.child('privacyV15').val() === true && newData.child('grouped').isBoolean()))"
         },
         "publicCount": {
           ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed')"
         },
         "players": {
-          ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && ((root.child('rooms').child($room).child('state').child('stage').val() !== 'final' && root.child('rooms').child($room).child('state').child('stage').val() !== 'review') || root.child('rooms').child($room).child('players').child(auth.uid).exists())",
+          ".read": "(auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && ((root.child('rooms').child($room).child('state').child('stage').val() !== 'final' && root.child('rooms').child($room).child('state').child('stage').val() !== 'review') || root.child('rooms').child($room).child('players').child(auth.uid).exists())) && !(root.child('rooms').child($room).child('state').child('privacyV15').val() === true)",
           "$uid": {
             ".write": "auth != null && auth.uid === $uid && !data.exists() && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && (root.child('rooms').child($room).child('state').child('stage').val() === 'lobby' || (root.child('rooms').child($room).child('state').child('allowLateJoin').val() === true && (root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'paused' || root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank')))",
-            ".validate": "newData.hasChildren(['name','score','streak','correct','joinedIndex'])",
+            ".validate": "newData.hasChildren(['name','score','streak','correct','joinedIndex']) && ((!(root.child('rooms').child($room).child('state').child('grouped').val() === true) && !newData.hasChild('staff')) || ((root.child('rooms').child($room).child('state').child('grouped').val() === true) && newData.child('staff').isBoolean())) && (!(root.child('rooms').child($room).child('state').child('privacyV15').val() === true) || (newData.parent().parent().child('roster').child($uid).child('name').val() === newData.child('name').val() && newData.parent().parent().child('roster').child($uid).child('staff').val() === newData.child('staff').val()))",
             "name": {
               ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
             },
@@ -46,6 +46,10 @@
             },
             "joinedIndex": {
               ".validate": "newData.isNumber() && ((auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid && auth.token.firebase.sign_in_provider === 'google.com') || (root.child('rooms').child($room).child('state').child('stage').val() === 'lobby' && newData.val() === 0) || ((root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'paused') && newData.val() === root.child('rooms').child($room).child('state').child('index').val()) || ((root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank') && newData.val() === root.child('rooms').child($room).child('state').child('index').val() + 1))"
+            },
+            ".read": "auth != null && auth.uid === $uid && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed')",
+            "staff": {
+              ".validate": "newData.isBoolean() && (root.child('rooms').child($room).child('state').child('grouped').val() === true) && (!data.exists() || data.val() === newData.val() || root.child('rooms').child($room).child('state').child('stage').val() === 'lobby')"
             }
           }
         },
@@ -55,7 +59,7 @@
             "$uid": {
               ".read": "auth != null && auth.uid === $uid && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed')",
               ".write": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && root.child('rooms').child($room).child('players').child(auth.uid).exists() && auth.uid === $uid && !data.exists() && root.child('rooms').child($room).child('state').child('stage').val() === 'question' && $index === (root.child('rooms').child($room).child('state').child('index').val() + '') && now < root.child('rooms').child($room).child('state').child('deadline').val() && now < root.child('rooms').child($room).child('state').child('control').child('until').val() && root.child('rooms').child($room).child('players').child($uid).child('joinedIndex').val() <= root.child('rooms').child($room).child('state').child('index').val()",
-              ".validate": "newData.hasChildren(['choice','at'])",
+              ".validate": "newData.hasChildren(['choice','at']) && (!(root.child('rooms').child($room).child('state').child('privacyV15').val() === true) || newData.parent().parent().parent().child('answerReceipts').child($index).child($uid).val() === true)",
               "at": {
                 ".validate": "newData.isNumber() && (newData.val() === now || newData.val() === data.val() || (auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid && auth.token.firebase.sign_in_provider === 'google.com'))"
               },
@@ -68,8 +72,7 @@
               "$other": {
                 ".validate": false
               }
-            },
-            ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && root.child('rooms').child($room).child('players').child(auth.uid).exists() && $index === (root.child('rooms').child($room).child('state').child('index').val() + '') && (root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'paused' || root.child('rooms').child($room).child('state').child('stage').val() === 'closing' || root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank')"
+            }
           }
         },
         ".read": "auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid && auth.token.firebase.sign_in_provider === 'google.com'",
@@ -79,6 +82,36 @@
         "reviews": {
           "$uid": {
             ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && root.child('rooms').child($room).child('players').child(auth.uid).exists() && (root.child('rooms').child($room).child('state').child('stage').val() === 'final' || root.child('rooms').child($room).child('state').child('stage').val() === 'review') && auth.uid === $uid"
+          }
+        },
+        "answerReceipts": {
+          "$index": {
+            ".read": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && $index === (root.child('rooms').child($room).child('state').child('index').val() + '')",
+            "$uid": {
+              ".write": "auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && root.child('rooms').child($room).child('players').child(auth.uid).exists() && auth.uid === $uid && !data.exists() && root.child('rooms').child($room).child('state').child('stage').val() === 'question' && $index === (root.child('rooms').child($room).child('state').child('index').val() + '') && now < root.child('rooms').child($room).child('state').child('deadline').val() && now < root.child('rooms').child($room).child('state').child('control').child('until').val() && root.child('rooms').child($room).child('players').child($uid).child('joinedIndex').val() <= root.child('rooms').child($room).child('state').child('index').val()",
+              ".validate": "newData.val() === true && ((auth != null && root.child('rooms').child($room).child('owner').val() === auth.uid && auth.token.firebase.sign_in_provider === 'google.com') || newData.parent().parent().parent().child('answers').child($index).child($uid).child('at').val() === now)"
+            }
+          }
+        },
+        "roster": {
+          ".read": "(auth != null && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && ((root.child('rooms').child($room).child('state').child('stage').val() !== 'final' && root.child('rooms').child($room).child('state').child('stage').val() !== 'review') || root.child('rooms').child($room).child('players').child(auth.uid).exists())) && (root.child('rooms').child($room).child('state').child('privacyV15').val() === true)",
+          "$uid": {
+            ".write": "(auth != null && auth.uid === $uid && !data.exists() && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && (root.child('rooms').child($room).child('state').child('stage').val() === 'lobby' || (root.child('rooms').child($room).child('state').child('allowLateJoin').val() === true && (root.child('rooms').child($room).child('state').child('stage').val() === 'question' || root.child('rooms').child($room).child('state').child('stage').val() === 'paused' || root.child('rooms').child($room).child('state').child('stage').val() === 'reveal' || root.child('rooms').child($room).child('state').child('stage').val() === 'rank')))) && (root.child('rooms').child($room).child('state').child('privacyV15').val() === true)",
+            ".validate": "newData.hasChild('name') && newData.child('name').val() === newData.parent().parent().child('players').child($uid).child('name').val() && newData.child('staff').val() === newData.parent().parent().child('players').child($uid).child('staff').val()",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+            },
+            "staff": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "privateResults": {
+          "$uid": {
+            ".read": "auth != null && auth.uid === $uid && (root.child('rooms').child($room).child('state').child('version').val() === 10 && root.child('rooms').child($room).child('state').child('expiresAt').val() > now && root.child('rooms').child($room).child('state').child('stage').val() !== 'closed') && root.child('rooms').child($room).child('players').child(auth.uid).exists() && (root.child('rooms').child($room).child('state').child('privacyV15').val() === true)"
           }
         }
       },
