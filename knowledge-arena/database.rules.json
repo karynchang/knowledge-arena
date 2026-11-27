@@ -86,6 +86,15 @@
         "owner"
       ],
       ".read": "auth != null && auth.token.firebase.sign_in_provider === 'google.com' && query.orderByChild === 'owner' && query.equalTo === auth.uid"
+    },
+    "banks": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid && auth.token.firebase.sign_in_provider === 'google.com'",
+        "$bank": {
+          ".write": "auth != null && auth.uid === $uid && auth.token.firebase.sign_in_provider === 'google.com'",
+          ".validate": "newData.hasChildren(['name','questions','createdAt','createdUid','createdEmail','modifiedAt','modifiedUid','modifiedEmail','revision']) && newData.child('name').isString() && newData.child('createdUid').val() === auth.uid && newData.child('modifiedUid').val() === auth.uid && newData.child('modifiedEmail').val() === auth.token.email && newData.child('modifiedAt').val() === now && ((!data.exists() && newData.child('createdAt').val() === now && newData.child('createdEmail').val() === auth.token.email && newData.child('revision').val() === 1) || (data.exists() && newData.child('createdAt').val() === data.child('createdAt').val() && newData.child('createdEmail').val() === data.child('createdEmail').val() && newData.child('revision').val() === data.child('revision').val() + 1))"
+        }
+      }
     }
   }
 }
